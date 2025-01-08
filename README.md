@@ -36,3 +36,6 @@
   
 ##  Схема базы данных. Сам нашел
   ![Sanagate-ERD-E.png](doc/Sanagate-ERD-E.png)
+  
+## Команда загрузки тестовых данных
+`` python manage.py load_test_data``
