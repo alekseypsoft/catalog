@@ -1,4 +1,15 @@
-{% extends "master.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  {% load bootstrap5 %}
+  {% load static %}
+  {% bootstrap_css %}
+ <link rel="stylesheet" href="{% static 'catalog/main.css' %}">
+  {% bootstrap_javascript %}
+</head>
+<body>
+
 <div class="container">
   <ul class="nav bg-info">
     <li class="nav-item">
@@ -8,6 +19,9 @@
       <a class="nav-link link-light" href="/members">MEMBERS</a>
     </li>
   </ul>
+
   {% block content %}
   {% endblock %}
 </div>
+</body>
+</html>
