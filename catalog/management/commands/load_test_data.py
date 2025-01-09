@@ -1,23 +1,18 @@
 from django.core.management.base import BaseCommand, CommandError
 from catalog.models import Employee
-
+from faker import Faker
 
 class Command(BaseCommand):
-    help = "Closes the specified poll for voting"
-
-    def add_arguments(self, parser):
-        parser.add_argument("poll_ids", nargs="+", type=int)
+    help = "Добавление тестовых данных в базу данных"
 
     def handle(self, *args, **options):
-        for poll_id in options["poll_ids"]:
-            try:
-                poll = Employee.objects.get(pk=poll_id)
-            except Employee.DoesNotExist:
-                raise CommandError('Poll "%s" does not exist' % poll_id)
+        fake = Faker()
+        e = Employee(first_name=fake.name(),
+                     last_name=fake.last_name(),
+                     patronymic_name=fake.name(),
+                     salary=50)
+        e.save(force_insert=True)
 
-            poll.opened = False
-            poll.save()
-
-            self.stdout.write(
-                self.style.SUCCESS('Successfully closed poll "%s"' % poll_id)
-            )
+        self.stdout.write(
+            self.style.SUCCESS('Данные успешно вставлены')
+        )
