@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import LoginPage from './pages/Login'
+import RegistroPage from './pages/Register.jsx'
+import PerfilAdminPage from './pages/ProfileAdmin.jsx'
+import PerfilUserPage from './pages/ProfileUser.jsx'
+import ProtectedRouteAdmin from './components/RouteProtection/ProtectedRouteAdmin.jsx'
+import ProtectedRouteUser from './components/RouteProtection/ProtectedRouteUser.jsx'
+import { AuthProvider } from '../context/authcontext'
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Rutas No Protegidas */}
+            <Route path='/registro' Component={RegistroPage} />
+            <Route path='/login' Component={LoginPage} />
+
+            {/* Rutas Protegidas */}
+            <Route element={<ProtectedRouteAdmin />}>
+              <Route path='/admin' Component={PerfilAdminPage} />
+            </Route>
+            <Route element={<ProtectedRouteUser />}>
+              <Route path='/user' Component={PerfilUserPage} />
+            </Route>
+            <Route path='*' Component={LoginPage} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </main>
   )
 }
 
