@@ -1,73 +1,53 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { register } from '../../endpoints/endpoints'
+import React, { useContext } from "react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import Authcontext from "../auth/Authcontext";
 
-const RegistroPage = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [role, setRole] = useState('admin')
-    const [viewAlert, setViewAlert] = useState(false)   
-    const [alert, setAlert] = useState('')
-    const [error, setError] = useState('')
-
-    const registrar = async (email, password, role) => {
-        
-        const response = await register(email, password, role)
-
-        if(!response.error){
-            setAlert(response.message)
-            setViewAlert(true);
-            setTimeout(() => {
-                setViewAlert(false);
-                setAlert('')
-            }, 1000);
-        }else{
-            setError(response.error)
-            setViewAlert(true);
-            setTimeout(() => {
-                setViewAlert(false);
-                setError('')
-            }, 1000);
-        }
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(email, password, role)
-        registrar(email, password, role)
-    }
-
+const Register = (e) => {
+  let { LoginUser, RegisterUser } = useContext(Authcontext);
 
   return (
-    <section className='form-container'>
-        <div className="bg-img"></div>
-        <div className="bg-form">
-            <form onSubmit={handleSubmit}>
-                <h2>Регистрация</h2>
-                {viewAlert && error &&  <div className='error'>{error}</div>}
-                {viewAlert && alert && <div className='alert'>{alert}</div>}
-                <div className='form-group'>
-                    <label htmlFor="email">Email</label>
-                    <input id="email" type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="password">Password</label>
-                    <input id='password' type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="role">Role</label>
-                    <select id="role"onChange={(e) => setRole(e.target.value)}>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
-                </div>
-                <button type="submit">Зарегистрироваться</button>
-                <small>Вы зарегистрированы? <Link to="/login">Login</Link></small>
-            </form>            
+    <div className="form-signin">
+      <form onSubmit={RegisterUser}>
+        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            id="floatingInput"
+            placeholder="Create your username"
+            name="username"
+          />
+          <label htmlFor="floatingInput">Username</label>
         </div>
-    </section>
+        <div className="form-floating">
+          <input
+            type="email"
+            className="form-control"
+            id="floatingEmail"
+            placeholder="enter your email"
+            name="email"
+          />
+          <label htmlFor="floatingEmail">Email</label>
+        </div>
 
-  )
-}
+        <div className="form-floating">
+          <input
+            type="password"
+            className="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+            name="password"
+          />
+          <label htmlFor="floatingPassword">Password</label>
+        </div>
+        <div className="form-check text-start my-3"></div>
+        <button className="btn btn-primary w-100 py-2" type="submit">
+          Register
+        </button>
+      </form>
+    </div>
+  );
+};
 
-export default RegistroPage
+export default Register;

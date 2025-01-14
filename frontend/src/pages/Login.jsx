@@ -1,67 +1,43 @@
-import React, { useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../../endpoints/endpoints'
-import { useAuth } from '../../context/authcontext'
+import React, { useContext } from "react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import Authcontext from "../auth/Authcontext";
 
-const LoginPage = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const { setUserRole, loading } = useAuth();
-    const [error, setError] = useState('')
-    const [viewAlert, setViewAlert] = useState(false)   
+const Login = (e) => {
+  let { LoginUser } = useContext(Authcontext);
 
-    const navigate = useNavigate()
+  return (
+    <div className="form-signin">
+      <form onSubmit={LoginUser}>
+        <h1 className="h3 mb-3 fw-normal">Please login in</h1>
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control"
+            id="floatingInput"
+            placeholder="name@example.com"
+            name="username"
+          />
+          <label htmlFor="floatingInput">Email address</label>
+        </div>
 
-    const loginUser = async (email, password) => {
-        const response = await login(email, password)
-        console.log(response)
+        <div className="form-floating">
+          <input
+            type="password"
+            className="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+            name="password"
+          />
+          <label htmlFor="floatingPassword">Password</label>
+        </div>
+        <div className="form-check text-start my-3"></div>
+        <button className="btn btn-primary w-100 py-2" type="submit">
+          Sign in
+        </button>
+      </form>
+    </div>
+  );
+};
 
-        if (!response.error) {                 
-            setUserRole(response.role)
-            if (response.role === 'admin') {
-                navigate('/admin')
-            } else {
-                navigate('/user')
-            }
-        }else{
-            setError(response.error);
-            setViewAlert(true);
-            setTimeout(() => {
-                setViewAlert(false);
-            }, 1000);
-        }
-    };
-    
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(email, password)
-        loginUser(email, password)
-    }
-
-
-    return (
-        <section className='form-container'>
-            <div className='bg-img'></div>
-            <div className='bg-form'>
-                <form onSubmit={handleSubmit}>
-                <h2>Login</h2>
-                {viewAlert && <div className='error'>{error}</div>}
-                <div className='form-group'>
-                    <label htmlFor="email">Email</label>
-                    <input id="email" type="text" placeholder="Username" onChange={(e) => setEmail(e.target.value)}/>
-                </div>
-                <div className='form-group'>
-                    <label htmlFor="password">Password</label>
-                    <input id="password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <button type="submit">Login</button>
-                <small>No tienes cuenta? <Link to="/registro">Registro</Link></small>
-                </form>
-            </div>
-        </section>
-
-    )
-}
-
-export default LoginPage
+export default Login;
