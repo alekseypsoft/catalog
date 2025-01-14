@@ -18,7 +18,7 @@ const PerfilUserPage = () => {
                 setIsAuthenticated(true)
 
             } catch (error) {
-                console.error('Error al verificar la autenticación:', error)
+                console.error('Ошибка аутентификации:', error)
                 navigate('/login')
             } finally {
                 setLoading(false)
@@ -37,7 +37,7 @@ const PerfilUserPage = () => {
                 navigate('/login')                
             }
         } catch (error) {
-            console.error('Error logging out:', error)
+            console.error('Ошибка выхода:', error)
         }
     }
 
@@ -46,7 +46,7 @@ const PerfilUserPage = () => {
 
     return (
         <div className='container'>
-            <h1>Perfil de usuario</h1>
+            <h1>Профиль пользователя</h1>
             <p>{message}</p>
             <button className='error' onClick={handleLogout}>Logout</button>
         </div>
