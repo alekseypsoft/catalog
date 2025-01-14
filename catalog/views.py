@@ -1,14 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics,status,views,permissions
+from django.shortcuts import render
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from .serilaizers import RegisterSerializer,LoginSerializer,LogoutSerializer
-from .models import User
-from rest_framework.views import APIView
+
+from .serilaizers import RegisterSerializer, LoginSerializer, LogoutSerializer
+
 
 def dashboard(request):
     return render(request, "catalog/index.html")

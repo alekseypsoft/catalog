@@ -5,7 +5,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Authcontext = createContext();
-
 export default Authcontext;
 
 export const Authprovider = ({ children }) => {
@@ -22,13 +21,10 @@ export const Authprovider = ({ children }) => {
   );
   let [loading, setloading] = useState(true);
 
-  // console.log(user);
-  // console.log(authToken);
-
   let RegisterUser = async (e) => {
     e.preventDefault();
 
-    let response = await fetch("http://127.0.0.1:8000/api/register/", {
+    let response = await fetch("http://127.0.0.1:8000/register/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +49,7 @@ export const Authprovider = ({ children }) => {
   let LoginUser = async (e) => {
     e.preventDefault();
 
-    let response = await fetch("http://127.0.0.1:8000/api/login/", {
+    let response = await fetch("http://127.0.0.1:8000/login/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +83,7 @@ export const Authprovider = ({ children }) => {
 
   let updateToken = async () => {
     console.log("updating");
-    let response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+    let response = await fetch("http://127.0.0.1:8000/token/refresh/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
