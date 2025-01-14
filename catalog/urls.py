@@ -18,8 +18,10 @@ Including another URLconf
 from django.urls import path
 
 from catalog import views
+from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path("", views.dashboard, name="index"),
     #    path('admin/', admin.site.urls),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
