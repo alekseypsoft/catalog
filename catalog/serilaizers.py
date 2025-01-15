@@ -46,9 +46,9 @@ class LoginSerializer(serializers.ModelSerializer):
         password = attrs.get('password', '')
         user = auth.authenticate(username=username, password=password)
         if not user:
-            raise AuthenticationFailed('Invalid credentials, try again')
+            raise AuthenticationFailed('Неверные учетные данные. Попробуйте позднее')
         if not user.is_active:
-            raise AuthenticationFailed('Account disabled, contact admin')
+            raise AuthenticationFailed('Аккаунт деактивирован. Поговорите с админом.')
         return {
             'email': user.email,
             'username': user.username,
@@ -67,4 +67,4 @@ class LogoutSerializer(serializers.Serializer):
         try:
             RefreshToken(self.token).blacklist()
         except TokenError:
-            self.fail('bad_token')
+            self.fail('Плохой токен')

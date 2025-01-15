@@ -1,34 +1,34 @@
 import React, { useContext } from "react";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import Authcontext from "../auth/Authcontext";
+import AuthStore from "../auth/AuthStore.jsx";
 
 const Register = (e) => {
-  let { LoginUser, RegisterUser } = useContext(Authcontext);
+  let { LoginUser, RegisterUser } = useContext(AuthStore);
 
   return (
     <div className="form-signin">
       <form onSubmit={RegisterUser}>
-        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 className="h3 mb-3 fw-normal">Пожалуйста, войдите</h1>
         <div className="form-floating">
           <input
             type="text"
             className="form-control"
             id="floatingInput"
-            placeholder="Create your username"
+            placeholder="Введите свое имя пользователя"
             name="username"
           />
-          <label htmlFor="floatingInput">Username</label>
+          <label htmlFor="floatingInput">Пользователь</label>
         </div>
         <div className="form-floating">
           <input
             type="email"
             className="form-control"
             id="floatingEmail"
-            placeholder="enter your email"
+            placeholder="Введите свою почту"
             name="email"
           />
-          <label htmlFor="floatingEmail">Email</label>
+          <label htmlFor="floatingEmail">Почта</label>
         </div>
 
         <div className="form-floating">
@@ -39,11 +39,11 @@ const Register = (e) => {
             placeholder="Password"
             name="password"
           />
-          <label htmlFor="floatingPassword">Password</label>
+          <label htmlFor="floatingPassword">Пароль</label>
         </div>
         <div className="form-check text-start my-3"></div>
         <button className="btn btn-primary w-100 py-2" type="submit">
-          Register
+          Зарегистрироваться
         </button>
       </form>
     </div>

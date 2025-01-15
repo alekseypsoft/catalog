@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import Authcontext from "../auth/Authcontext";
+import AuthStore from "../auth/AuthStore.jsx";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  let { user } = useContext(Authcontext);
+  let { user } = useContext(AuthStore);
   return (
     <div>
       {user ? (
